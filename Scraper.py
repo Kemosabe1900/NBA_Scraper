@@ -11,5 +11,6 @@ import json
 test_url = 'https://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2022-23&SeasonType=Regular Season&StatCategory=PTS'
 r = requests.get(url=test_url).json()
 table_headers = r['resultSet']['headers']
+
 print(pd.DataFrame(r['resultSet']['headers']))
 # print(table_headers)
