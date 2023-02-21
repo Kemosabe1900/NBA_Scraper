@@ -1,0 +1,39 @@
+import requests
+from nba_api.stats.static import players
+from nba_api.stats.endpoints import playercareerstats
+from nba_api.stats.endpoints import playergamelog
+
+
+# gets a list of all NBA players' and their IDs
+nba_players = players.get_players()
+# print(nba_players[players])
+# Ask the user to select a player by ID or by name
+player_id = input("Enter the player ID or name: ")
+
+# If the user entered a player name, find the corresponding ID
+if not player_id.isdigit():
+    selected_player = [p for p in nba_players if p['full_name'] == player_id]
+    if len(selected_player) == 0:
+        print(f"Player '{player_id}' not found")
+        exit()
+    player_id = selected_player[0]['id']
+
+    # Get the career stats for the selected player
+career_stats = playercareerstats.PlayerCareerStats(player_id=player_id)
+
+# Print the career stats for the selected player
+# print(career_stats.get_data_frames()[0])
+
+# # Get the game logs for the selected player
+# game_logs = playergamelog.PlayerGameLog(player_id=player_id)
+
+# # Print the game logs for the selected player
+# print(game_logs.get_data_frames()[0])
+# # Group the game logs by season
+# season_groups = game_logs.get_data_frames()[0].groupby('SEASON_ID' == 2202)
+# print(season_groups)
+# # Display the stats for each season
+# for season, season_stats in season_groups:
+#     print(f"Season: {season}")
+#     print(season_stats.tail(5))
+#     print()
